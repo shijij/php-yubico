@@ -1,0 +1,27 @@
+{
+    "name": "shiji/php-yubico",
+    "description": "Unofficial Yubico OTP Authentication Library",
+    "type": "library",
+    "require": {
+        "ext-curl": "*"
+    },
+    "license": "BSD-3-Clause",
+    "authors": [
+        {
+            "name": "Shiji Jiang",
+            "email": "git_noreply@shijij.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=5.6.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~5.7"
+    },
+    "autoload":{
+        "psr-4":{
+            "Yubico\\":"src/Yubico/"
+        }
+    }
+}

@@ -1,26 +1,25 @@
 <?php
 
-require_once(__DIR__ . '/../Yubico.php');
-
+use Yubico\Auth;
 
 class YubicoTest extends \PHPUnit\Framework\TestCase {
   private $yubi;
 
   public function setUp(): void {
-    $this->yubi = new Auth_Yubico(27655, '9Tt8Gg51VG/dthDKgopt0n8IXVI=');
+    $this->yubi = new Auth(27655, '9Tt8Gg51VG/dthDKgopt0n8IXVI=');
     error_reporting(E_WARNING);
   }
 
   public function testVerify() {
     $otp = 'vvincrediblegfnchniugtdcbrleehenethrlbihdijv';
+    $this->expectExceptionMessage('REPLAYED_OTP');
     $ret = $this->yubi->verify($otp);
-    $this->assertEquals('REPLAYED_OTP', $ret);
   }
 
   public function testBadOTP() {
     $otp = 'vvincrediblegfnchniugtdcbrleehenethrlbihdijc';
+      $this->expectExceptionMessage('NO_VALID_ANSWER');
     $ret = $this->yubi->verify($otp);
-    $this->assertEquals('NO_VALID_ANSWER', $ret);
   }
 }
 
@@ -30,7 +29,7 @@ class RetryTest extends \PHPUnit\Framework\TestCase {
   private $webserver_pid;
     
   public function setUp(): void {
-    $this->yubi = new Auth_Yubico(27655, '9Tt8Gg51VG/dthDKgopt0n8IXVI=');
+    $this->yubi = new Auth(27655, '9Tt8Gg51VG/dthDKgopt0n8IXVI=');
     $this->webserver_url = "http://localhost:3961";
 
     $this->yubi->setURLpart($this->webserver_url . "/tests/mock_verify.php");
