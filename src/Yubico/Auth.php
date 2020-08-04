@@ -255,7 +255,6 @@ class Auth
 
     function _make_curl_handle($query, $timeout = null)
     {
-        flush();
         $handle = curl_init($query);
         curl_setopt($handle, CURLOPT_USERAGENT, "PEAR Auth_Yubico");
         curl_setopt($handle, CURLOPT_RETURNTRANSFER, 1);
